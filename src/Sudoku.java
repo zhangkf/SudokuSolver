@@ -35,54 +35,70 @@ public class Sudoku {
     }
 
     private boolean nakedSingles() {
-        return nakedSinglesInRows();
+        nakedSinglesInRows();
+        nakedSinglesInCols();
+
+        return true;
     }
 
     private boolean nakedSinglesInRows(){
         for (int i = 0; i < 9; i++) {
             int[] cols = board[i];
-            nakedSingleInOneRow(cols);
 
-        }
+            int countOfEmptyCell = 0;
+            int emptyCellIndex = 0;
 
-        for (int i = 0; i < 9; i++) {
-            for (int j = 0; j < 9; j++) {
-                int[] array = new int[9];
-                array[j] = board[j][i];
-                nakedSingleInOneRow(array);
+            for (int j = 0; j < cols.length; j++) {
+                if(cols[j] == 0){
+                    countOfEmptyCell++;
+                    emptyCellIndex = j;
+                }
             }
+
+            if(countOfEmptyCell ==  1) {
+                int[] placeholder = new int[10];
+                for (int j = 0; j < cols.length; j++) {
+                    placeholder[cols[j]] = cols[j];
+                }
+                for (int j = 1; j < placeholder.length; j++) {
+                    if (placeholder[j] == 0) {
+                        cols[emptyCellIndex] = j;
+                    }
+                }
+            }
+
         }
 
         return true;
 
     }
 
-    private boolean nakedSingleInOneRow(int[] cols) {
-        //[2,3,5,6,8,0,9,7,1]
+    private boolean nakedSinglesInCols() {
+        for (int i = 0; i < 9; i++) {
+            int countOfEmptyCell = 0;
+            int emptyCellIndex = 0;
 
-        int countOfEmptyCell = 0;
-        int emptyCellIndex = 0;
-
-        for (int i = 0; i < cols.length; i++) {
-            if(cols[i] == 0){
-                countOfEmptyCell++;
-                emptyCellIndex = i;
+            for (int j = 0; j < 9; j++) {
+                if(board[j][i] == 0){
+                    countOfEmptyCell++;
+                    emptyCellIndex = j;
+                }
             }
-        }
 
-        if(countOfEmptyCell ==  0 ||  countOfEmptyCell > 1) return false;
-        int[] placeholder = new int[10];
-        for (int i = 0; i < cols.length; i++) {
-            placeholder[cols[i]] = cols[i];
-        }
-        for (int i = 1; i < placeholder.length; i++) {
-            if(placeholder[i] == 0){
-                cols[emptyCellIndex] = i;
-                return true;
+            if(countOfEmptyCell ==  0 ||  countOfEmptyCell > 1) return false;
+            int[] placeholder = new int[10];
+            for (int j = 0; j < 9; j++) {
+                placeholder[board[j][i]] = board[j][i];
             }
+            for (int j = 1; j < placeholder.length; j++) {
+                if(placeholder[j] == 0){
+                    board[emptyCellIndex][i] = j;
+                    return true;
+                }
+            }
+            return true;
         }
-        return true;
-
+        return false;
     }
 
     public boolean isSolved() {
