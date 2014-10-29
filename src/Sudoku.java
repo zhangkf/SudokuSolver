@@ -39,10 +39,18 @@ public class Sudoku {
     }
 
     private boolean nakedSinglesInRows(){
-        for (int i = 0; i < board.length; i++) {
+        for (int i = 0; i < 9; i++) {
             int[] cols = board[i];
             nakedSingleInOneRow(cols);
 
+        }
+
+        for (int i = 0; i < 9; i++) {
+            for (int j = 0; j < 9; j++) {
+                int[] array = new int[9];
+                array[j] = board[j][i];
+                nakedSingleInOneRow(array);
+            }
         }
 
         return true;
