@@ -66,7 +66,7 @@ public class SudokuTests {
     public void testNakedSinglesInBox(){
         int[][] board = new int[][]{
                 {5,3,0,6,7,8,0,1,2},
-                {6,7,2,1,9,5,3,4,8},
+                {6,7,2,1,9,0,3,4,8},
                 {1,9,8,3,4,2,5,6,7},
                 {8,5,0,7,6,1,0,2,3},
                 {4,2,6,8,5,3,7,9,1},

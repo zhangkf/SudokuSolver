@@ -36,13 +36,13 @@ public class Sudoku {
 
     }
 
-    private boolean nakedSingleInBox(int i1, int j1) {
+    private boolean nakedSingleInBox(int indexI, int indexJ) {
         int countOfEmptyCell = 0;
         int emptyCellIndexI = 0;
         int emptyCellIndexJ = 0;
         int[] placeholder = new int[10];
-        for (int i = i1; i < i1+3; i++) {
-            for (int j = j1; j < j1+3; j++) {
+        for (int i = indexI; i < indexI+3; i++) {
+            for (int j = indexJ; j < indexJ+3; j++) {
                 placeholder[board[i][j]]=board[i][j];
                 if (board[i][j] == 0) {
                     countOfEmptyCell++;
@@ -53,9 +53,9 @@ public class Sudoku {
         }
 
         if (countOfEmptyCell == 1) {
-            for (int j = 1; j < placeholder.length; j++) {
-                if (placeholder[j] == 0) {
-                    board[emptyCellIndexI][emptyCellIndexJ] = j;
+            for (int i = 1; i < placeholder.length; i++) {
+                if (placeholder[i] == 0) {
+                    board[emptyCellIndexI][emptyCellIndexJ] = i;
                     return true;
                 }
             }
@@ -89,7 +89,6 @@ public class Sudoku {
                     }
                 }
             }
-
         }
 
         return false;
